@@ -6,9 +6,12 @@
         //Your code goes here 
         
         // Declare and contruct two objects (h1, h2) from the class HorizontalLine 
+        
         HorizontalLine slowLine = new HorizontalLine(20, 2.0); 
         
-        HorizontalLine fastLine = new HorizontalLine(50, 2.5); 
+        HorizontalLine fastLine = new HorizontalLine(50, 2.5);
+
+        Building randomBuilding = new Building();
         
         //since these are variables we don't want to ever change in the code, we capitalize them 
         var WINDOW_WIDTH = 400;
@@ -30,7 +33,9 @@
         
           slowLine.moveLine(); 
         
-          fastLine.moveLine();  
+          fastLine.moveLine();
+
+          randomBuilding.drawBuilding();
         
         } 
         
@@ -40,7 +45,9 @@
         //attributes which describes the object 
         //a constructor which sets the default values for the attributes 
         //and functions which manipulate/give information about the attributes
-        class HorizontalLine { 
+        
+
+      class HorizontalLine { 
         
 		  //attributes        
           var yPos, speed; //float means they can be decimals
@@ -78,6 +85,54 @@
           } 
         
         }
+
+        class Building
+        {
+
+          //attributes
+          var buildingColor, buildingWidth, buildingHeight, buildingX, buildingY;
+
+          //constructor
+          Building()
+
+          {
+            
+            buildingColor = random(color(10,70));
+
+            buildingWidth = random(50,80);
+
+            buildingHeight = random(100,200);
+
+            buildingX = random(0,400);
+
+            buildingY = (400 - buildingHeight);
+
+
+          }
+
+          void moveBuilding()
+          {
+
+            update();
+            drawBuilding();
+          }
+
+          
+          void update()
+          {
+
+          }
+
+          void drawBuilding()
+          {
+            fill(buildingColor);
+            rect(buildingX,buildingY,buildingWidth,buildingHeight);
+          }
+
+
+        }
+
+
         </script> 
     </head>
     

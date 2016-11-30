@@ -7,11 +7,6 @@
 
         // Declare and contruct two objects (h1, h2) from the class HorizontalLine
 
-
-        Building randomBuilding = new Building();
-
-        Building randomBuilding2 = new Building();
-
 				Skyline firstBuilding = new Skyline();
 
 
@@ -32,10 +27,6 @@
         void draw() {
 
           background(LIGHTBLUE); //needed in the draw function to "clear" the screen between updates
-
-          randomBuilding.moveBuilding();
-
-          randomBuilding2.moveBuilding();
 
 					firstBuilding.drawSkyline();
 
@@ -68,7 +59,7 @@
 
             buildingHeight = random(100,200);
 
-            buildingX = random(0,400);
+            buildingX = 400 - buildingWidth;
 
             buildingY = (400 - buildingHeight);
 
@@ -116,7 +107,7 @@
 						{
 							buildingList = new ArrayList<Buildings>();
 
-							buildingList.add(new Building());
+              buildingList.add(new Building());
 
 						}
 
@@ -125,6 +116,8 @@
 						for (int i = buildingList.size()-1; i >= 0; i--)
 						{
 							Building randomBuilding = (Building) buildingList.get(i);
+
+              randomBuilding.drawBuilding();
 
 						}
 

@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>FishTank 2.0</title>
+		<title>City Scroller</title>
 		<script src="http://cloud.github.com/downloads/processing-js/processing-js/processing-1.4.1.min.js"></script>
 		<script type="text/processing" data-processing-target="mycanvas">
         //Your code goes here
@@ -8,7 +8,7 @@
         // Declare and contruct two objects (h1, h2) from the class HorizontalLine
 
 				Skyline firstBuilding = new Skyline();
-				var buildingX = 0;
+
 
         //since these are variables we don't want to ever change in the code, we capitalize them
         var WINDOW_WIDTH = 400;
@@ -20,31 +20,21 @@
 
           frameRate(30); //how many times the draw function is called per second
 
+					for(var i = 0; i< 100; i++)
+						firstBuilding.addBuilding();
+
         }
-
-				function drawTestBuilding()
-				{
-					var buildingWidth = random(50,80);
-					var buildingHeight = random(100,200);
-					var buildingY = 400 - buildingHeight;
-
-					fill(100);
-					rect(buildingX,buildingY,buildingWidth,buildingHeight);
-
-					buildingX += buildingWidth;
-
-				}
 
 
 
         //called repeatedly
         void draw() {
 
-          //background(LIGHTBLUE); //needed in the draw function to "clear" the screen between updates
+          background(LIGHTBLUE); //needed in the draw function to "clear" the screen between updates
 
-					//firstBuilding.drawSkyline();
+					firstBuilding.drawSkyline();
 
-					drawTestBuilding();
+
 
         }
 
@@ -65,17 +55,17 @@
           var buildingColor, buildingWidth, buildingHeight, buildingX, buildingY;
 
           //constructor
-          Building()
+          Building(var x, var bw)
 
           {
 
             buildingColor = color(random(150,200));
 
-            buildingWidth = random(50,80);
+            buildingWidth = bw;
 
             buildingHeight = random(100,200);
 
-            buildingX = 400 - buildingWidth;
+            buildingX = x;
 
             buildingY = 400 - buildingHeight;
 
@@ -95,18 +85,17 @@
 
             buildingX -= 2;
 
-            if (buildingX < 0-buildingWidth)
-            {
-              buildingX = 400 + buildingWidth;
-            }
 
 
           }
 
           void drawBuilding()
           {
-            fill(buildingColor);
-            rect(buildingX,buildingY,buildingWidth,buildingHeight);
+
+
+						fill(buildingColor);
+						rect(buildingX,buildingY,buildingWidth,buildingHeight);
+
 
           }
 
@@ -116,28 +105,63 @@
         class Skyline
         {
 
-          //attributes
+
+
+					//attributes
 					ArrayList<Building> buildingList;
+
+					var buildingX;
 
 					//constructor
 						Skyline()
 						{
+
+							buildingX = 0;
+
 							buildingList = new ArrayList<Buildings>();
 
               buildingList.add(new Building());
 
+
 						}
+
+						void addBuilding() {
+
+							var buildingWidth = random(50,80);
+							Building newBuilding = new Building(buildingX, buildingWidth);
+							buildingList.add(newBuilding);
+							buildingX += buildingWidth;
+
+					}
+
 
 					void drawSkyline()
 					{
+
 						for (int i = buildingList.size()-1; i >= 0; i--)
 						{
 							Building randomBuilding = (Building) buildingList.get(i);
 
-              randomBuilding.moveBuilding();
+              randomBuilding.drawBuilding();
+
 
 						}
 
+
+					}
+
+
+					void moveSkyline()
+					{
+						update();
+						drawSkyline();
+
+					}
+
+
+					void update()
+					{
+						buildingX += 2;
 
 					}
 

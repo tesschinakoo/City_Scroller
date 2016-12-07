@@ -7,15 +7,15 @@
 
         // Declare and contruct two objects (h1, h2) from the class HorizontalLine
 
-				Skyline firstBuilding = new Skyline();
+				Skyline backSkyline = new Skyline(360, 2);
 
-
+				Skyline frontSkyline = new Skyline(200, 3);
 
 
         //since these are variables we don't want to ever change in the code, we capitalize them
 
 
-				var WINDOW_WIDTH = 1000;
+				var WINDOW_WIDTH = screen.width;
         var WINDOW_HEIGHT = 400;
         var LIGHTBLUE = color(150,200,250);
         //This function only runs once at the start of the program
@@ -33,8 +33,9 @@
 
           background(LIGHTBLUE); //needed in the draw function to "clear" the screen between updates
 
-					firstBuilding.moveSkyline();
+					backSkyline.moveSkyline();
 
+					frontSkyline.moveSkyline();
 
 
 
@@ -57,7 +58,7 @@
           var buildingColor, buildingWidth, buildingHeight, buildingX, buildingY;
 
           //constructor
-          Building(var x, var bw)
+          Building(var x, var bw, var bh)
 
           {
 
@@ -65,7 +66,7 @@
 
             buildingWidth = bw;
 
-            buildingHeight = random(100,200);
+            buildingHeight = bh;
 
             buildingX = x;
 
@@ -83,10 +84,10 @@
           }
 
 
-          void update()
+          void update(var speed)
           {
 
-            buildingX -= 2;
+            buildingX -= speed;
 
 
 
@@ -98,6 +99,8 @@
 
 						fill(buildingColor);
 						rect(buildingX,buildingY,buildingWidth,buildingHeight);
+						fill(10);
+						rect(buildingX+10,buildingY+10,buildingWidth/10,buildingHeight/20);
 
 
           }
@@ -114,10 +117,16 @@
 					ArrayList<Building> buildingList;
 
 					var buildingX;
+					var maxBuildingHeight;
+					var buildingSpeed;
 
 					//constructor
-						Skyline()
+						Skyline(var maxBH, var BuS)
 						{
+
+							buildingSpeed = BuS;
+
+							maxBuildingHeight = maxBH;
 
 							buildingX = 0;
 
@@ -130,8 +139,9 @@
 
 						void addBuilding() {
 
+							var buildingHeight = random(100,maxBuildingHeight);
 							var buildingWidth = random(50,80);
-							Building newBuilding = new Building(buildingX, buildingWidth);
+							Building newBuilding = new Building(buildingX, buildingWidth, buildingHeight);
 							buildingList.add(newBuilding);
 							buildingX += buildingWidth;
 
@@ -170,19 +180,24 @@
 						{
 							Building randomBuilding = (Building) buildingList.get(i);
 
-              randomBuilding.moveBuilding();
-
-
+              randomBuilding.update(buildingSpeed);
 
 						}
 
-						buildingX -= 2;
+						buildingX -= buildingSpeed;
 
-						if (buildingX< width +200)
+						if (buildingX < width +200)
 								{
 									addBuilding();
 
 								}
+
+						//if (buildingX < 0-buildingWidth)
+								//{
+									//buildingList.remove(i);
+
+								//}
+
 
 					}
 
@@ -191,7 +206,7 @@
 					{
 
 
-						while (buildingX<1000)
+						while (buildingX<screen.width)
 						{
 							addBuilding();
 						}

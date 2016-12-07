@@ -99,9 +99,22 @@
 
 						fill(buildingColor);
 						rect(buildingX,buildingY,buildingWidth,buildingHeight);
-						fill(10);
-						rect(buildingX+10,buildingY+10,buildingWidth/5,buildingHeight/20);
-						rect(buildingX+ buildingWidth - buildingWidth/5 - 10,buildingY+10,buildingWidth/5,buildingHeight/20);
+						fill(30);
+
+						windowX = buildingX + 10;
+						window2X = buildingX+ buildingWidth - buildingWidth/5 - 10;
+						windowY = buildingY+10;
+						windWidth = buildingWidth/5;
+						windHeight = 15;
+
+						for (int i = 0; i < 5; i++)
+						{
+							rect(windowX,windowY,windWidth,windHeight);
+							rect(window2X,windowY,windWidth,windHeight);
+
+							windowY += 50;
+
+						}
 
 
           }

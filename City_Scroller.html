@@ -9,9 +9,14 @@
 
 				Skyline firstBuilding = new Skyline();
 
+				Skyline firstSkyline = new Skyline();
+
+
 
         //since these are variables we don't want to ever change in the code, we capitalize them
-        var WINDOW_WIDTH = 400;
+
+
+				var WINDOW_WIDTH = screen.width;
         var WINDOW_HEIGHT = 400;
         var LIGHTBLUE = color(150,200,250);
         //This function only runs once at the start of the program
@@ -19,9 +24,6 @@
           size(WINDOW_WIDTH, WINDOW_HEIGHT); //sets the size of the window
 
           frameRate(30); //how many times the draw function is called per second
-
-					for(var i = 0; i< 100; i++)
-						firstBuilding.addBuilding();
 
         }
 
@@ -33,6 +35,8 @@
           background(LIGHTBLUE); //needed in the draw function to "clear" the screen between updates
 
 					firstBuilding.moveSkyline();
+
+					firstSkyline.fillSkyline();
 
 
 
@@ -68,6 +72,8 @@
             buildingX = x;
 
             buildingY = 400 - buildingHeight;
+
+						xPos = buildingX + buildingWidth;
 
 
           }
@@ -120,7 +126,7 @@
 
 							buildingList = new ArrayList<Buildings>();
 
-              buildingList.add(new Building());
+							fillSkyline();
 
 
 						}
@@ -138,11 +144,13 @@
 					void drawSkyline()
 					{
 
+
 						for (int i = buildingList.size()-1; i >= 0; i--)
 						{
 							Building randomBuilding = (Building) buildingList.get(i);
 
               randomBuilding.drawBuilding();
+
 
 
 						}
@@ -169,6 +177,20 @@
 
 							buildingX -= 2;
 
+
+						}
+
+
+					}
+
+
+					void fillSkyline()
+					{
+
+
+						while (buildingX<screen.width)
+						{
+							addBuilding();
 						}
 
 					}

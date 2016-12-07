@@ -11,6 +11,9 @@
 
 				Skyline frontSkyline = new Skyline(100, 200, 3);
 
+			 	Sun newSun = new Sun();
+
+
 
         //since these are variables we don't want to ever change in the code, we capitalize them
 
@@ -33,10 +36,11 @@
 
           background(LIGHTBLUE); //needed in the draw function to "clear" the screen between updates
 
+					newSun.moveSun();
+
 					backSkyline.moveSkyline();
 
 					frontSkyline.moveSkyline();
-
 
 
         }
@@ -49,9 +53,50 @@
         //and functions which manipulate/give information about the attributes
 
 
+				class Sun
+				{
+
+					//attributes
+					var sunColor, sunX, sunY;
+
+					//constructor
+					Sun()
+					{
+						var sunColor = color(252,220,64);
+						var sunX = 0;
+						var sunY = 0;
+
+					}
+
+					//why don't those variables go into my draw function?
+
+					void drawSun()
+					{
+						noStroke();
+						fill(252,220,64);
+						ellipse(sunX, sunY, 200, 200);
+
+					}
+
+					void update()
+					{
+						sunY += .2;
+						sunX += .3;
+
+					}
+
+					void moveSun()
+					{
+						drawSun();
+						update();
+					}
 
 
-        class Building
+				}
+
+
+
+				class Building
         {
 
           //attributes

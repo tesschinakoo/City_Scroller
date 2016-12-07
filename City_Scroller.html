@@ -7,9 +7,9 @@
 
         // Declare and contruct two objects (h1, h2) from the class HorizontalLine
 
-				Skyline backSkyline = new Skyline(360, 2);
+				Skyline backSkyline = new Skyline(200, 360, 2);
 
-				Skyline frontSkyline = new Skyline(200, 3);
+				Skyline frontSkyline = new Skyline(100, 200, 3);
 
 
         //since these are variables we don't want to ever change in the code, we capitalize them
@@ -100,7 +100,8 @@
 						fill(buildingColor);
 						rect(buildingX,buildingY,buildingWidth,buildingHeight);
 						fill(10);
-						rect(buildingX+10,buildingY+10,buildingWidth/10,buildingHeight/20);
+						rect(buildingX+10,buildingY+10,buildingWidth/5,buildingHeight/20);
+						rect(buildingX+ buildingWidth - buildingWidth/5 - 10,buildingY+10,buildingWidth/5,buildingHeight/20);
 
 
           }
@@ -117,14 +118,17 @@
 					ArrayList<Building> buildingList;
 
 					var buildingX;
+					var minBuildingHeight;
 					var maxBuildingHeight;
 					var buildingSpeed;
 
 					//constructor
-						Skyline(var maxBH, var BuS)
+						Skyline(var minBH, var maxBH, var BuS)
 						{
 
 							buildingSpeed = BuS;
+
+							minBuildingHeight = minBH;
 
 							maxBuildingHeight = maxBH;
 
@@ -139,7 +143,7 @@
 
 						void addBuilding() {
 
-							var buildingHeight = random(100,maxBuildingHeight);
+							var buildingHeight = random(minBuildingHeight,maxBuildingHeight);
 							var buildingWidth = random(50,80);
 							Building newBuilding = new Building(buildingX, buildingWidth, buildingHeight);
 							buildingList.add(newBuilding);

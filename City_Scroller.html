@@ -9,14 +9,13 @@
 
 				Skyline firstBuilding = new Skyline();
 
-				Skyline firstSkyline = new Skyline();
 
 
 
         //since these are variables we don't want to ever change in the code, we capitalize them
 
 
-				var WINDOW_WIDTH = screen.width;
+				var WINDOW_WIDTH = 1000;
         var WINDOW_HEIGHT = 400;
         var LIGHTBLUE = color(150,200,250);
         //This function only runs once at the start of the program
@@ -36,7 +35,6 @@
 
 					firstBuilding.moveSkyline();
 
-					firstSkyline.fillSkyline();
 
 
 
@@ -73,7 +71,6 @@
 
             buildingY = 400 - buildingHeight;
 
-						xPos = buildingX + buildingWidth;
 
 
           }
@@ -175,11 +172,17 @@
 
               randomBuilding.moveBuilding();
 
-							buildingX -= 2;
 
 
 						}
 
+						buildingX -= 2;
+
+						if (buildingX< width +200)
+								{
+									addBuilding();
+
+								}
 
 					}
 
@@ -188,7 +191,7 @@
 					{
 
 
-						while (buildingX<screen.width)
+						while (buildingX<1000)
 						{
 							addBuilding();
 						}

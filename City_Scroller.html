@@ -5,19 +5,6 @@
 		<script type="text/processing" data-processing-target="mycanvas">
         //Your code goes here
 
-				function show_image(src, width, height, alt) {
-				    var img = document.createElement("cloudbackround.png");
-				    img.src = src;
-				    img.width = width;
-				    img.height = height;
-				    img.alt = alt;
-
-				    // This next line will just add it to the <body> tag
-				    document.body.appendChild("cloudbackround.png");
-				}
-
-
-
 PImage b;
 b = loadImage("cloudbackround.png");
 
@@ -30,6 +17,9 @@ b = loadImage("cloudbackround.png");
 
 			 	Sun newSun = new Sun();
 
+				Cloud firstCloud = new Cloud();
+
+				Cloud secondCloud = new Cloud();
 
 
         //since these are variables we don't want to ever change in the code, we capitalize them
@@ -40,9 +30,6 @@ b = loadImage("cloudbackround.png");
 				var rValue = 150;
 				var gValue = 200;
 				var bValue = 250;
-				var image1X = 0;
-				var imageY = 0;
-				var image2X = screen.width/1.8;
       	var backgroundcolor = color(rValue,gValue,bValue);
 				function colorChange() {
 					rValue -= 1.5;
@@ -70,20 +57,16 @@ b = loadImage("cloudbackround.png");
           background(color(rValue,gValue,bValue)); //needed in the draw function to "clear" the screen between updates
 
 					newSun.moveSun();
-					image(b, image1X, imageY);
-					image(b, image2X, imageY);
+
+					firstCloud.moveCloud();
+
+					secondCloud.moveCloud();
 
 					backSkyline.moveSkyline();
 
 					frontSkyline.moveSkyline();
-image1X += 1;
-image2X += 1;
-if (image1X > screen.width-33){
-	image1X = -289;
-}
-if (image2X > screen.width-33){
-	image2X = -289;
-}
+
+
 
 rValue -= 1.5;
 gValue -= 2;
@@ -98,7 +81,6 @@ if (gValue < -400){
 if (bValue < -500){
 	bValue = 250;
 }
-
         }
 
 
@@ -118,9 +100,9 @@ if (bValue < -500){
 					//constructor
 					Sun()
 					{
-						var sunColor = color(252,220,64);
-						var sunX = 45;
-						var sunY = 300;
+						sunColor = color(252,220,64);
+						sunX = 45;
+						sunY = 50;
 
 					}
 
@@ -129,7 +111,7 @@ if (bValue < -500){
 					void drawSun()
 					{
 						noStroke();
-						fill(252,220,64);
+						fill(sunColor);
 						ellipse(sunX, sunY, 200, 200);
 					}
 
@@ -138,7 +120,6 @@ if (bValue < -500){
 						sunY += .18;
 						sunX += .3;
 
-
 					}
 
 					void moveSun()
@@ -146,8 +127,43 @@ if (bValue < -500){
 						drawSun();
 						update();
 					}
+				}
+
+
+				class Cloud
+				{
+					//attributes
+					var imageX, imageY;
+
+					//constructor
+					Cloud()
+					{
+						imageX = random(0, screen.width+200);
+						imageY = random(-36,69);
+					}
+
+					void drawCloud()
+					{
+						image(b, imageX, imageY);
+					}
+
+					void update()
+					{
+						imageX += 1;
+						if (imageX > screen.width-33){
+							imageX = -289;
+						}
+
+					}
+
+					void moveCloud()
+					{
+						drawCloud();
+						update();
+					}
 
 				}
+
 
 
 

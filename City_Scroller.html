@@ -5,11 +5,28 @@
 		<script type="text/processing" data-processing-target="mycanvas">
         //Your code goes here
 
+				function show_image(src, width, height, alt) {
+				    var img = document.createElement("cloudbackround.png");
+				    img.src = src;
+				    img.width = width;
+				    img.height = height;
+				    img.alt = alt;
+
+				    // This next line will just add it to the <body> tag
+				    document.body.appendChild("cloudbackround.png");
+				}
+
+
+
+PImage b;
+b = loadImage("cloudbackround.png");
+
+
         // Declare and contruct two objects (h1, h2) from the class HorizontalLine
 
-				Skyline backSkyline = new Skyline(200, 360, 2);
+				Skyline backSkyline = new Skyline(180, 345, 2);
 
-				Skyline frontSkyline = new Skyline(100, 200, 3);
+				Skyline frontSkyline = new Skyline(90, 180, 3);
 
 			 	Sun newSun = new Sun();
 
@@ -20,7 +37,23 @@
 
 				var WINDOW_WIDTH = screen.width;
         var WINDOW_HEIGHT = 400;
-        var LIGHTBLUE = color(150,200,250);
+				var color1 = 150;
+				var color2 = 200;
+				var color3 = 250;
+				var image1X = 0;
+				var imageY = 0;
+				var image2X = screen.width/1.8;
+      	var backgroundcolor = color(color1,color2,color3);
+				function colorChange() {
+					color1 -= 1.5;
+					color2 -= 2;
+					color3 -= 2.5;
+				}
+
+				for (int i = 0; i < 1000; i = i+1) {
+setTimeout(colorChange, 800);
+				}
+
         //This function only runs once at the start of the program
         void setup() {
           size(WINDOW_WIDTH, WINDOW_HEIGHT); //sets the size of the window
@@ -34,14 +67,37 @@
         //called repeatedly
         void draw() {
 
-          background(LIGHTBLUE); //needed in the draw function to "clear" the screen between updates
+          background(color(color1,color2,color3)); //needed in the draw function to "clear" the screen between updates
 
 					newSun.moveSun();
+					image(b, image1X, imageY);
+					image(b, image2X, imageY);
 
 					backSkyline.moveSkyline();
 
 					frontSkyline.moveSkyline();
+image1X += 1;
+image2X += 1;
+if (image1X > screen.width-50){
+	image1X = -180;
+}
+if (image2X > screen.width-50){
+	image2X = -180;
+}
 
+color1 -= 1.5;
+color2 -= 2;
+color3 -= 2.5;
+
+if (color1 < -300){
+	color1 = 150;
+}
+if (color2 < -400){
+	color2 = 200;
+}
+if (color3 < -500){
+	color3 = 250;
+}
 
         }
 
@@ -63,25 +119,29 @@
 					Sun()
 					{
 						var sunColor = color(252,220,64);
-						var sunX = 0;
-						var sunY = 0;
+						var sunX = 45;
+						var sunY = 300;
 
 					}
 
-					//why don't those variables go into my draw function?
+					//why don't those variables go into my draw function? - true
 
 					void drawSun()
 					{
 						noStroke();
 						fill(252,220,64);
 						ellipse(sunX, sunY, 200, 200);
-
 					}
 
 					void update()
 					{
-						sunY += .2;
+						sunY += .18;
 						sunX += .3;
+
+						if (sunY < 200){
+							sunY = 45;
+							sunX = 45;
+						}
 
 					}
 
@@ -90,7 +150,6 @@
 						drawSun();
 						update();
 					}
-
 
 				}
 

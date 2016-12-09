@@ -5,9 +5,6 @@
 		<script type="text/processing" data-processing-target="mycanvas">
         //Your code goes here
 
-PImage b;
-b = loadImage("cloudbackround.png");
-
 
         // Declare and contruct two objects (h1, h2) from the class HorizontalLine
 
@@ -21,6 +18,15 @@ b = loadImage("cloudbackround.png");
 
 				Cloud secondCloud = new Cloud();
 
+				Bird firstBird = new Bird();
+
+				PImage b;
+				b = loadImage("cloudbackround.png");
+
+				PImage c;
+				c = loadImage("bird.png")
+
+
 
         //since these are variables we don't want to ever change in the code, we capitalize them
 
@@ -31,15 +37,28 @@ b = loadImage("cloudbackround.png");
 				var gValue = 200;
 				var bValue = 250;
       	var backgroundcolor = color(rValue,gValue,bValue);
-				function colorChange() {
+				function colorChange()
+				{
 					rValue -= 1.5;
-					gValue -= 2;
-					bValue -= 2.5;
+					gValue -= 2.5;
+					bValue -= 2.25;
+
+					if (rValue < 30)
+					{
+						rValue = 30;
+					}
+
+					if (gValue < 20)
+					{
+						gValue = 20;
+					}
+
+					if (bValue < 60)
+					{
+						bValue = 60;
+					}
 				}
 
-				//for (int i = 0; i < 1000; i = i+1) {
-//setTimeout(colorChange, 800);
-				//}
 
         //This function only runs once at the start of the program
         void setup() {
@@ -49,10 +68,10 @@ b = loadImage("cloudbackround.png");
 
         }
 
-
-
         //called repeatedly
-        void draw() {
+        void draw()
+
+				{
 
           background(color(rValue,gValue,bValue)); //needed in the draw function to "clear" the screen between updates
 
@@ -66,21 +85,17 @@ b = loadImage("cloudbackround.png");
 
 					frontSkyline.moveSkyline();
 
+					firstBird.moveBird();
+
+					if(frameCount%20==0)
+					{
+						colorChange();
+
+					}
 
 
-rValue -= 1.5;
-gValue -= 2;
-bValue -= 2.5;
 
-if (rValue < -300){
-	rValue = 150;
-}
-if (gValue < -400){
-	gValue = 200;
-}
-if (bValue < -500){
-	bValue = 250;
-}
+
         }
 
 
@@ -95,12 +110,14 @@ if (bValue < -500){
 				{
 
 					//attributes
-					var sunColor, sunX, sunY;
+					var sunColor, sunX, sunY, sunR, sunG, sunB;
 
 					//constructor
 					Sun()
 					{
-						sunColor = color(252,220,64);
+						sunR = 252;
+						sunG = 220;
+						sunB = 64;
 						sunX = 45;
 						sunY = 50;
 
@@ -111,14 +128,28 @@ if (bValue < -500){
 					void drawSun()
 					{
 						noStroke();
-						fill(sunColor);
+						fill(sunR,sunG,sunB);
 						ellipse(sunX, sunY, 200, 200);
 					}
 
 					void update()
 					{
+
 						sunY += .18;
 						sunX += .3;
+						sunG -= .03;
+						sunB += .03;
+
+
+						if (sunG<178)
+						{
+							sunG = 178;
+						}
+
+						if (sunB>102)
+						{
+							sunB = 102;
+						}
 
 					}
 
@@ -161,6 +192,37 @@ if (bValue < -500){
 						drawCloud();
 						update();
 					}
+
+				}
+
+				class Bird
+				{
+					var birdX, birdY;
+
+					Bird()
+					{
+						birdX = -10;
+						birdY = random(0,50);
+					}
+
+					void drawBird()
+					{
+						image(c, birdX, birdY);
+					}
+
+					void update()
+					{
+						birdX += 1;
+						if (birdX > screen.width-10){
+							birdX = -289;}
+					}
+
+					void moveBird()
+					{
+						drawBird();
+						update();
+					}
+
 
 				}
 
@@ -324,12 +386,6 @@ if (bValue < -500){
 									addBuilding();
 
 								}
-
-						//if (buildingX < 0-buildingWidth)
-								//{
-									//buildingList.remove(i);
-
-								//}
 
 
 					}

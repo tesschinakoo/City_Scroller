@@ -37,22 +37,22 @@ b = loadImage("cloudbackround.png");
 
 				var WINDOW_WIDTH = screen.width;
         var WINDOW_HEIGHT = 400;
-				var color1 = 150;
-				var color2 = 200;
-				var color3 = 250;
+				var rValue = 150;
+				var gValue = 200;
+				var bValue = 250;
 				var image1X = 0;
 				var imageY = 0;
 				var image2X = screen.width/1.8;
-      	var backgroundcolor = color(color1,color2,color3);
+      	var backgroundcolor = color(rValue,gValue,bValue);
 				function colorChange() {
-					color1 -= 1.5;
-					color2 -= 2;
-					color3 -= 2.5;
+					rValue -= 1.5;
+					gValue -= 2;
+					bValue -= 2.5;
 				}
 
-				for (int i = 0; i < 1000; i = i+1) {
-setTimeout(colorChange, 800);
-				}
+				//for (int i = 0; i < 1000; i = i+1) {
+//setTimeout(colorChange, 800);
+				//}
 
         //This function only runs once at the start of the program
         void setup() {
@@ -67,7 +67,7 @@ setTimeout(colorChange, 800);
         //called repeatedly
         void draw() {
 
-          background(color(color1,color2,color3)); //needed in the draw function to "clear" the screen between updates
+          background(color(rValue,gValue,bValue)); //needed in the draw function to "clear" the screen between updates
 
 					newSun.moveSun();
 					image(b, image1X, imageY);
@@ -78,25 +78,25 @@ setTimeout(colorChange, 800);
 					frontSkyline.moveSkyline();
 image1X += 1;
 image2X += 1;
-if (image1X > screen.width-50){
-	image1X = -180;
+if (image1X > screen.width-33){
+	image1X = -289;
 }
-if (image2X > screen.width-50){
-	image2X = -180;
+if (image2X > screen.width-33){
+	image2X = -289;
 }
 
-color1 -= 1.5;
-color2 -= 2;
-color3 -= 2.5;
+rValue -= 1.5;
+gValue -= 2;
+bValue -= 2.5;
 
-if (color1 < -300){
-	color1 = 150;
+if (rValue < -300){
+	rValue = 150;
 }
-if (color2 < -400){
-	color2 = 200;
+if (gValue < -400){
+	gValue = 200;
 }
-if (color3 < -500){
-	color3 = 250;
+if (bValue < -500){
+	bValue = 250;
 }
 
         }
@@ -138,10 +138,6 @@ if (color3 < -500){
 						sunY += .18;
 						sunX += .3;
 
-						if (sunY < 200){
-							sunY = 45;
-							sunX = 45;
-						}
 
 					}
 

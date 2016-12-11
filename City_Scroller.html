@@ -24,38 +24,29 @@
 				b = loadImage("cloudbackround.png");
 
 				PImage c;
-				c = loadImage("bird.png")
+				c = loadImage("bird1.png")
 
 
 
         //since these are variables we don't want to ever change in the code, we capitalize them
-
-
 				var WINDOW_WIDTH = screen.width;
         var WINDOW_HEIGHT = 400;
 				var rValue = 150;
 				var gValue = 200;
 				var bValue = 250;
       	var backgroundcolor = color(rValue,gValue,bValue);
+
 				function colorChange()
 				{
 					rValue -= 1.5;
 					gValue -= 2.5;
 					bValue -= 2.25;
 
-					if (rValue < 30)
+					if (rValue < 0 & gValue <0 & bValue <0)
 					{
-						rValue = 30;
-					}
-
-					if (gValue < 20)
-					{
-						gValue = 20;
-					}
-
-					if (bValue < 60)
-					{
-						bValue = 60;
+						rValue = 150;
+						gValue = 200;
+						bValue = 250;
 					}
 				}
 
@@ -65,14 +56,11 @@
           size(WINDOW_WIDTH, WINDOW_HEIGHT); //sets the size of the window
 
           frameRate(30); //how many times the draw function is called per second
-
         }
 
         //called repeatedly
         void draw()
-
 				{
-
           background(color(rValue,gValue,bValue)); //needed in the draw function to "clear" the screen between updates
 
 					newSun.moveSun();
@@ -90,21 +78,15 @@
 					if(frameCount%20==0)
 					{
 						colorChange();
-
 					}
-
-
-
-
         }
 
 
         //This is the definition of your object
-        //a class consists of:
+        //a CLASS consists of:
         //attributes which describes the object
         //a constructor which sets the default values for the attributes
         //and functions which manipulate/give information about the attributes
-
 
 				class Sun
 				{
@@ -120,10 +102,7 @@
 						sunB = 64;
 						sunX = 45;
 						sunY = 50;
-
 					}
-
-					//why don't those variables go into my draw function? - true
 
 					void drawSun()
 					{
@@ -134,12 +113,10 @@
 
 					void update()
 					{
-
 						sunY += .18;
 						sunX += .3;
 						sunG -= .03;
 						sunB += .03;
-
 
 						if (sunG<178)
 						{
@@ -150,7 +127,6 @@
 						{
 							sunB = 102;
 						}
-
 					}
 
 					void moveSun()
@@ -159,6 +135,7 @@
 						update();
 					}
 				}
+
 
 
 				class Cloud
@@ -184,7 +161,6 @@
 						if (imageX > screen.width-33){
 							imageX = -289;
 						}
-
 					}
 
 					void moveCloud()
@@ -192,8 +168,9 @@
 						drawCloud();
 						update();
 					}
-
 				}
+
+
 
 				class Bird
 				{
@@ -212,9 +189,9 @@
 
 					void update()
 					{
-						birdX += 1;
+						birdX += 5;
 						if (birdX > screen.width-10){
-							birdX = -289;}
+							birdX = -200;}
 					}
 
 					void moveBird()
@@ -222,10 +199,7 @@
 						drawBird();
 						update();
 					}
-
-
 				}
-
 
 
 
@@ -237,9 +211,7 @@
 
           //constructor
           Building(var x, var bw, var bh)
-
           {
-
             buildingColor = color(random(150,200));
 
             buildingWidth = bw;
@@ -249,9 +221,6 @@
             buildingX = x;
 
             buildingY = 400 - buildingHeight;
-
-
-
           }
 
           void moveBuilding()
@@ -266,15 +235,10 @@
           {
 
             buildingX -= speed;
-
-
-
           }
 
           void drawBuilding()
           {
-
-
 						fill(buildingColor);
 						rect(buildingX,buildingY,buildingWidth,buildingHeight);
 						fill(30);
@@ -291,19 +255,14 @@
 							rect(window2X,windowY,windWidth,windHeight);
 
 							windowY += 50;
-
 						}
-
-
           }
-
-
         }
+
+
 
         class Skyline
         {
-
-
 
 					//attributes
 					ArrayList<Building> buildingList;
@@ -316,7 +275,6 @@
 					//constructor
 						Skyline(var minBH, var maxBH, var BuS)
 						{
-
 							buildingSpeed = BuS;
 
 							minBuildingHeight = minBH;
@@ -328,8 +286,6 @@
 							buildingList = new ArrayList<Buildings>();
 
 							fillSkyline();
-
-
 						}
 
 						void addBuilding() {
@@ -339,25 +295,18 @@
 							Building newBuilding = new Building(buildingX, buildingWidth, buildingHeight);
 							buildingList.add(newBuilding);
 							buildingX += buildingWidth;
-
 					}
 
 
 					void drawSkyline()
 					{
 
-
 						for (int i = buildingList.size()-1; i >= 0; i--)
 						{
 							Building randomBuilding = (Building) buildingList.get(i);
 
               randomBuilding.drawBuilding();
-
-
-
 						}
-
-
 					}
 
 
@@ -365,9 +314,7 @@
 					{
 						update();
 						drawSkyline();
-
 					}
-
 
 					void update()
 					{
@@ -376,7 +323,6 @@
 							Building randomBuilding = (Building) buildingList.get(i);
 
               randomBuilding.update(buildingSpeed);
-
 						}
 
 						buildingX -= buildingSpeed;
@@ -384,25 +330,17 @@
 						if (buildingX < width +200)
 								{
 									addBuilding();
-
 								}
-
-
 					}
 
 
 					void fillSkyline()
 					{
-
-
 						while (buildingX<screen.width)
 						{
 							addBuilding();
 						}
-
 					}
-
-
         }
 
 
